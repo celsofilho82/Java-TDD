@@ -1,6 +1,4 @@
-# Java-TDD
-Testes Unitários em Java
-
+# Testes Unitários em Java
 Conhecendo boas práticas e aprendendo a utilizar as principais ferramentas do mercado, criando os testes desde o início.
 
 ## Objetivos de aprendizado
