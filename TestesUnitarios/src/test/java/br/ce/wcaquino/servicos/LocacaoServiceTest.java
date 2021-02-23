@@ -1,6 +1,9 @@
 package br.ce.wcaquino.servicos;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 import java.util.Date;
 
@@ -25,10 +28,12 @@ public class LocacaoServiceTest {
 
 		Locacao locacao = service.alugarFilme(usuario, filme);
 
-		// Fazendo a verificação usando as assertivas do JUnit
-		assertTrue(locacao.getValor() == 2.5);
-		assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-		assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+		// Usando o assertThat(verifique que!) que deixa a leitura do método mais
+		// fluido(fluent interface)
+		assertThat(locacao.getValor(),is(equalTo(2.5)));
+		assertThat(locacao.getValor(),is(not(5.0)));
+		assertThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		assertThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 
 	}
 }
