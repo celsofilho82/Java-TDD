@@ -1,12 +1,8 @@
 package br.ce.wcaquino.servicos;
 
 import static br.ce.wcaquino.utils.DataUtils.adicionarDias;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
@@ -15,7 +11,11 @@ import br.ce.wcaquino.utils.DataUtils;
 
 public class LocacaoService {
 
-	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+		if (filme.getEstoque() == 0) {
+			throw new Exception("Filme sem estoque!");
+		}
+		
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
 		locacao.setUsuario(usuario);
@@ -33,7 +33,7 @@ public class LocacaoService {
 		return locacao;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		/*
 		 * Testes devem ser FIRST 
