@@ -26,12 +26,13 @@ public class LocacaoService {
 		}
 
 		Locacao locacao = new Locacao();
-		locacao.setFilme(filmes);
+		locacao.setFilmes(filmes);
 		locacao.setUsuario(usuario);
 		locacao.setDataLocacao(new Date());
 		Double valorFilme = 0d;
 		for (Filme filme : filmes) {
 			valorFilme += filme.getPrecoLocacao();
+			locacao.setValor(valorFilme);
 		}
 
 		// Entrega no dia seguinte

@@ -6,7 +6,9 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -38,15 +40,15 @@ public class LocacaoServiceTest {
 		// Criando o cenário
 
 		Usuario usuario = new Usuario("Celso Ribeiro");
-		Filme filme = new Filme("COMA", 1, 2.50);
+		List<Filme> filmes = Arrays.asList(new Filme("COMA", 1, 4.0));
 
 		// Realizadno a ação
 
-		Locacao locacao = service.alugarFilme(usuario, filme);
+		Locacao locacao = service.alugarFilme(usuario, filmes);
 
 		// Usando o assertThat(verifique que!) que deixa a leitura do método mais
 		// fluido(fluent interface)
-		assertThat(locacao.getValor(), is(equalTo(2.5)));
+		assertThat(locacao.getValor(), is(equalTo(4.0)));
 		assertThat(locacao.getValor(), is(not(5.0)));
 		assertThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
 		assertThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
@@ -59,11 +61,11 @@ public class LocacaoServiceTest {
 		// Criando o cenário
 
 		Usuario usuario = new Usuario("Celso Ribeiro");
-		Filme filme = new Filme("COMA", 0, 2.50);
+		List<Filme> filmes = Arrays.asList(new Filme("COMA", 0, 2.50));
 
 		// Realizadno a ação
 
-		service.alugarFilme(usuario, filme);
+		service.alugarFilme(usuario, filmes);
 	}
 
 	// Não informo ao teste que uma Excessão é esperada - Forma controlada
@@ -73,12 +75,12 @@ public class LocacaoServiceTest {
 
 		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("Celso Ribeiro");
-		Filme filme = new Filme("COMA", 0, 2.50);
+		List<Filme> filmes = Arrays.asList(new Filme("COMA", 0, 2.50));
 
 		// Realizadno a ação
 
 		try {
-			service.alugarFilme(usuario, filme);
+			service.alugarFilme(usuario, filmes);
 			// Garantindo que a exception deve ser lançada no teste
 			fail("Deve ser lançado uma exceção");
 		} catch (Exception e) {
@@ -92,7 +94,7 @@ public class LocacaoServiceTest {
 		// Criando o cenário
 
 		Usuario usuario = new Usuario("Celso Ribeiro");
-		Filme filme = new Filme("COMA", 0, 2.50);
+		List<Filme> filmes = Arrays.asList(new Filme("COMA", 0, 2.50));
 
 		// Realizadno a ação
 
@@ -100,7 +102,7 @@ public class LocacaoServiceTest {
 		exception.expect(Exception.class);
 		exception.expectMessage("Filme sem estoque!");
 
-		service.alugarFilme(usuario, filme);
+		service.alugarFilme(usuario, filmes);
 
 	}
 
@@ -109,11 +111,11 @@ public class LocacaoServiceTest {
 		// Criando o cenário
 
 		Usuario usuario = null;
-		Filme filme = new Filme("COMA", 1, 2.50);
+		List<Filme> filmes = Arrays.asList(new Filme("COMA", 1, 2.50));
 
 		// Realizadno a ação
 		try {
-			service.alugarFilme(usuario, filme);
+			service.alugarFilme(usuario, filmes);
 			fail("Deve ser lançado uma exceção");
 		} catch (Exception e) {
 			assertThat(e.getMessage(), is("Usuaŕio não pode ser nulo"));
