@@ -4,12 +4,15 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -173,6 +176,27 @@ public class LocacaoServiceTest {
 
 		// verificacao
 		assertThat(locacao.getValor(), is(14.0));
+	}
+
+	@Test
+	public void deveDevolverNaSegundaAoAlugarNoSabado() throws Exception {
+
+		/*
+		 * Informamos dinamicamente que este teste só deve ser executado em um dia de
+		 * Sábado
+		 */
+		Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+
+		// Criando o cenário
+		Usuario usuario = new Usuario("Celso Ribeiro");
+		List<Filme> filmes = Arrays.asList(new Filme("COMA", 1, 2.50));
+
+		// acao
+		Locacao locacao = service.alugarFilme(usuario, filmes);
+
+		// verificacao
+		boolean ehSegunda = DataUtils.verificarDiaSemana(locacao.getDataRetorno(), Calendar.MONDAY);
+		assertTrue(ehSegunda);
 	}
 
 }
