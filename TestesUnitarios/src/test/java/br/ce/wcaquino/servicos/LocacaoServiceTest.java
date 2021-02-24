@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,11 +23,20 @@ public class LocacaoServiceTest {
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
+	private LocacaoService service;
+
+	// Utilizamos o @Before nos casos em que eu tenho o mesmo pre-requisito para
+	// todos os cenários
+
+	@Before
+	public void setup() {
+		service = new LocacaoService();
+	}
+
 	@Test
 	public void quandoTudoEstaCorreto() throws Exception {
 		// Criando o cenário
 
-		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("Celso Ribeiro");
 		Filme filme = new Filme("COMA", 1, 2.50);
 
@@ -48,7 +58,6 @@ public class LocacaoServiceTest {
 	public void lancaExceptionSeOFilmeNaoTemEstoque() throws Exception {
 		// Criando o cenário
 
-		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("Celso Ribeiro");
 		Filme filme = new Filme("COMA", 0, 2.50);
 
@@ -82,7 +91,6 @@ public class LocacaoServiceTest {
 	public void lancaExceptionSeOFilmeNaoTemEstoque3() throws Exception {
 		// Criando o cenário
 
-		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("Celso Ribeiro");
 		Filme filme = new Filme("COMA", 0, 2.50);
 
@@ -100,7 +108,6 @@ public class LocacaoServiceTest {
 	public void usuarioNaoPodeSerNulo() {
 		// Criando o cenário
 
-		LocacaoService service = new LocacaoService();
 		Usuario usuario = null;
 		Filme filme = new Filme("COMA", 1, 2.50);
 
