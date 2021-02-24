@@ -96,4 +96,21 @@ public class LocacaoServiceTest {
 
 	}
 
+	@Test
+	public void usuarioNaoPodeSerNulo() {
+		// Criando o cenário
+
+		LocacaoService service = new LocacaoService();
+		Usuario usuario = null;
+		Filme filme = new Filme("COMA", 1, 2.50);
+
+		// Realizadno a ação
+		try {
+			service.alugarFilme(usuario, filme);
+			fail("Deve ser lançado uma exceção");
+		} catch (Exception e) {
+			assertThat(e.getMessage(), is("Usuaŕio não pode ser nulo"));
+		}
+	}
+
 }
